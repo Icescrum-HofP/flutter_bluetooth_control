@@ -3,6 +3,7 @@ import 'package:bluetooth_control/services/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -146,13 +147,12 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Material(
-                elevation: 0,
-                child: TextField(
-                  cursorColor: Colors.pink,
-                ),
+                  child: MaterialPicker(
+                      pickerColor: Colors.white,
+                      onColorChanged: (changeColor) =>
+                          bluetooth.color(changeColor)
+                  )
               ),
-
-
             ],
           ),
         ),
@@ -189,4 +189,5 @@ class _HomePageState extends State<HomePage> {
       _connected = false;
     });
   }
+
 }

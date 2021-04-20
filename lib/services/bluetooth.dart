@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
@@ -9,6 +10,7 @@ abstract class Bluetooth {
   Future<bool> connectTo(String address);
   Stream<BluetoothState> connectionState();
   void write(String message);
+  void color(Color color);
   Future<bool> disconnect();
 }
 
@@ -49,6 +51,18 @@ class BluetoothService implements Bluetooth {
     if (bluetoothConnection.isConnected) {
       bluetoothConnection.output.add(utf8.encode(message));
     }
+  }
+@override
+  void color(Color color){
+    Uint8List values = Uint8List(3);
+    values[0] = color.red;
+    values[1] = color.green;
+    values[2] = color.blue;
+
+    if (bluetoothConnection.isConnected) {
+      bluetoothConnection.output.add(values);
+    }
+
   }
 
   @override
